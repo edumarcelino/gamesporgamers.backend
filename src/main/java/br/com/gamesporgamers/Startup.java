@@ -1,4 +1,4 @@
-package br.com.gamesporgamers.entity;
+package br.com.gamesporgamers;
 
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Singleton;
@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.gamesporgamers.entity.Category;
+import br.com.gamesporgamers.entity.User;
 import io.quarkus.runtime.StartupEvent;
 
 @Singleton
@@ -43,5 +45,4 @@ public class Startup {
         Category.add("Celular");
     }
 
-    
 }
