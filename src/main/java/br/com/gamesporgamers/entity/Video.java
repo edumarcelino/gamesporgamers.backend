@@ -4,6 +4,8 @@ import java.util.Date;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Video extends PanacheEntity{
@@ -14,6 +16,8 @@ public class Video extends PanacheEntity{
 
     private Date datePublish;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;
 
     public String getUrlVideo() {
         return this.urlVideo;

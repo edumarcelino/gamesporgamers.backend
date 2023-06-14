@@ -37,6 +37,9 @@ public class Post extends PanacheEntity {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images = new ArrayList<>();
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Video> videos = new ArrayList<>();
+
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
