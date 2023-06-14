@@ -6,6 +6,7 @@ import java.util.List;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -17,15 +18,24 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Post extends PanacheEntity {
 
-    private String review;
+    @Column(columnDefinition = "TEXT")
+    private String postText;
+
+    @Column(columnDefinition = "TEXT")
+    private String postTextHTML;
 
     private Date datePost;
+
+    private boolean highlighted;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images = new ArrayList<>();
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -34,17 +44,23 @@ public class Post extends PanacheEntity {
     @JoinTable(name = "post_subcategory", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
     private ArrayList<SubCategory> subCategories = new ArrayList<>();
 
-    
 
-
-
-    public String getReview() {
-        return this.review;
+    public String getPostText() {
+        return this.postText;
     }
 
-    public void setReview(String review) {
-        this.review = review;
+    public void setPostText(String postText) {
+        this.postText = postText;
     }
+
+    public String getPostTextHTML() {
+        return this.postTextHTML;
+    }
+
+    public void setPostTextHTML(String postTextHTML) {
+        this.postTextHTML = postTextHTML;
+    }
+
 
     public Date getDatePost() {
         return this.datePost;
@@ -68,6 +84,26 @@ public class Post extends PanacheEntity {
 
     public void setSubCategories(ArrayList<SubCategory> subCategories) {
         this.subCategories = subCategories;
+    }
+
+    public boolean isHighlighted() {
+        return this.highlighted;
+    }
+
+    public boolean getHighlighted() {
+        return this.highlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        this.highlighted = highlighted;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }
