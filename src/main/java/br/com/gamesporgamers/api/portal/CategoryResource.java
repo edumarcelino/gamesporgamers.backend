@@ -1,4 +1,4 @@
-package br.com.gamesporgamers.api.open;
+package br.com.gamesporgamers.api.portal;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

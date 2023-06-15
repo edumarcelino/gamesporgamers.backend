@@ -1,4 +1,4 @@
-package br.com.gamesporgamers.api.restrict;
+package br.com.gamesporgamers.api.admin;
 
 import br.com.gamesporgamers.entity.Post;
 import br.com.gamesporgamers.service.PostService;
