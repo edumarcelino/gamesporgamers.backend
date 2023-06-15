@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.gamesporgamers.entity.enumTypes.PostRatingEnum;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -40,13 +41,15 @@ public class Post extends PanacheEntity {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Video> videos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserRatingPost> userRatingsPost = new ArrayList<>();
+
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
     @JoinTable(name = "post_subcategory", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
     private ArrayList<SubCategory> subCategories = new ArrayList<>();
-
 
     public String getPostText() {
         return this.postText;
@@ -63,7 +66,6 @@ public class Post extends PanacheEntity {
     public void setPostTextHTML(String postTextHTML) {
         this.postTextHTML = postTextHTML;
     }
-
 
     public Date getDatePost() {
         return this.datePost;
@@ -108,5 +110,22 @@ public class Post extends PanacheEntity {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public List<Image> getImages() {
+        return this.images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public List<Video> getVideos() {
+        return this.videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
+
 
 }

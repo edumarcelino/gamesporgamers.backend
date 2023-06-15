@@ -39,16 +39,17 @@ public class User extends PanacheEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserRatingPost> userRating = new ArrayList<>();
+
     public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
     }
 
-
     public User() {
     }
-
 
     /**
      * Adds a new user to the database
