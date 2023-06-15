@@ -5,7 +5,9 @@ import java.util.List;
 import br.com.gamesporgamers.entity.Post;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Sort;
+import jakarta.enterprise.context.ApplicationScoped;
 
+@ApplicationScoped
 public class PostRepository implements PanacheRepository<Post> {
 
     public List<Post> listAllOrderedByName() {

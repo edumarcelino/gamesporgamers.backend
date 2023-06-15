@@ -1,4 +1,4 @@
-package br.com.gamesporgamers.api.publico;
+package br.com.gamesporgamers.api.open;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
