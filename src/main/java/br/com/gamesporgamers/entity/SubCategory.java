@@ -3,27 +3,26 @@ package br.com.gamesporgamers.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
+
 import jakarta.persistence.ManyToMany;
 
 @Entity
 public class SubCategory extends PanacheEntity {
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "category_subcategory", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
-    private ArrayList<Category> categories = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "subCategories")
-    private List<Post> posts = new ArrayList<>();
-
     private String name;
+
+    @ManyToMany
+    @JsonIgnore
+    private List<Category> categories;
+
+    @ManyToMany
+    @JsonIgnore
+    private List<Post> posts = new ArrayList<>();
 
     public String getName() {
         return this.name;
@@ -33,19 +32,28 @@ public class SubCategory extends PanacheEntity {
         this.name = name;
     }
 
-    public ArrayList<Category> getCategories() {
+    public List<Category> getCategories() {
         return this.categories;
     }
 
-    public void setCategories(ArrayList<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 
-    public static void add(String name, ArrayList<Category> categories) {
-        SubCategory subCategory = new SubCategory();
-        subCategory.name = name;
-        subCategory.categories = categories;
-        subCategory.persist();
+    public List<Post> getPosts() {
+        return this.posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public SubCategory(List<Category> categories, String name) {
+        this.categories = categories;
+        this.name = name;
+    }
+
+    public SubCategory() {
     }
 
 }
