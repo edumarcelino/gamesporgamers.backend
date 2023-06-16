@@ -16,10 +16,14 @@ import br.com.gamesporgamers.entity.User;
 import br.com.gamesporgamers.entity.enumTypes.Role;
 import br.com.gamesporgamers.service.CategoryService;
 import br.com.gamesporgamers.service.SubCategoryService;
+import br.com.gamesporgamers.util.PBKDF2Encoder;
 import io.quarkus.runtime.StartupEvent;
 
 @Singleton
 public class Startup {
+
+    @Inject
+    PBKDF2Encoder passwordEncoder;
 
     @Inject
     CategoryService categoryService;
@@ -37,10 +41,9 @@ public class Startup {
 
         Set<Role> rolesUser = new HashSet<>();
         rolesUser.add(Role.USER);
-        
 
-        users.add(new User("admin", "password@2305", rolesAdmin));
-        users.add(new User("user", "password@2305", rolesUser));
+        users.add(new User("admin", passwordEncoder.encode("password@2305"), rolesAdmin));
+        users.add(new User("user", passwordEncoder.encode("password@2305"), rolesUser));
 
         for (User user : users) {
             if (!User.exists(user.getUsername())) {

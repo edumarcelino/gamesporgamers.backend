@@ -5,7 +5,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import br.com.gamesporgamers.entity.dto.auth.AuthResponseDTO;
 import br.com.gamesporgamers.entity.User;
 import br.com.gamesporgamers.entity.dto.auth.AuthRequestDTO;
-import br.com.gamesporgamers.service.PostService;
 import br.com.gamesporgamers.service.UserService;
 import br.com.gamesporgamers.util.PBKDF2Encoder;
 import br.com.gamesporgamers.util.TokenUtils;
@@ -18,7 +17,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
-@Path("/user")
+@Path("/auth")
 public class AuthenticationResource {
 
     @Inject
@@ -39,7 +38,8 @@ public class AuthenticationResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(AuthRequestDTO authRequest) {
         User user = userService.findByUsernameAndPassword(authRequest);
-        if (user != null && user.password.equals(passwordEncoder.encode(authRequest.password))) {
+        System.out.println(passwordEncoder.encode(authRequest.getPassword()));
+        if (user != null) {
             try {
                 return Response
                         .ok(new AuthResponseDTO(
