@@ -2,6 +2,7 @@ package br.com.gamesporgamers.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -19,6 +20,7 @@ public class Category extends PanacheEntity {
 
     @ManyToMany(mappedBy = "categories")
     @JsonProperty("subcategories")
+    @JsonIgnore
     private List<SubCategory> subCategories;
 
     public String getName() {

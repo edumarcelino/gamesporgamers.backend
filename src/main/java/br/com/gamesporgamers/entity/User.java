@@ -15,8 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.gamesporgamers.entity.enumTypes.Role;
-import io.quarkus.elytron.security.common.BcryptUtil;
 
 @Entity
 @Table(name = "users")
@@ -26,18 +27,23 @@ public class User extends PanacheEntity {
     @Column(unique = true)
     public String username;
 
+    @JsonIgnore
     public String password;
 
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     public Set<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<UserRatingPost> userRating = new ArrayList<>();
 
     public User(String username, String password, Set<Role> roles) {

@@ -15,8 +15,8 @@ public class PostService {
     @Inject
     PostRepository postRepository;
 
-    public List<Post> getAllPosts() {
-        return postRepository.listAllOrderedByName();
+    public List<Post> listAllOrderedByDate() {
+        return postRepository.listAllOrderedByDate();
     }
 
     public Post getPostById(Long postId) {

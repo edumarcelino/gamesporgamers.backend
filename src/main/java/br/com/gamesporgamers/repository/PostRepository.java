@@ -16,8 +16,8 @@ public class PostRepository implements PanacheRepository<Post> {
     @Inject
     CommentRepository commentRepository;
 
-    public List<Post> listAllOrderedByName() {
-        return this.listAll(Sort.by("name").ascending());
+    public List<Post> listAllOrderedByDate() {
+        return this.listAll(Sort.by("datePost").descending());
     }
 
     public List<Post> findByKeyword(String keyword) {

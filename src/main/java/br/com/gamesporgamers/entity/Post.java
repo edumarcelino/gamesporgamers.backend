@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,6 +19,8 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Post extends PanacheEntity {
+
+    private String title;
 
     @Column(columnDefinition = "TEXT")
     private String postText;
@@ -43,12 +47,10 @@ public class Post extends PanacheEntity {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRatingPost> userRatingsPost = new ArrayList<>();
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "post_subcategory", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
-    private ArrayList<SubCategory> subCategories = new ArrayList<>();
+    // TODO: Rever essa ligação, um post possui categoria e subcategoria.
+    @ManyToMany(mappedBy = "posts", fetch = FetchType.LAZY)
+    @JsonProperty("subcategories")
+    private List<SubCategory> subCategories;
 
     public String getPostText() {
         return this.postText;
@@ -82,11 +84,11 @@ public class Post extends PanacheEntity {
         this.comments = comments;
     }
 
-    public ArrayList<SubCategory> getSubCategories() {
+    public List<SubCategory> getSubCategories() {
         return this.subCategories;
     }
 
-    public void setSubCategories(ArrayList<SubCategory> subCategories) {
+    public void setSubCategories(List<SubCategory> subCategories) {
         this.subCategories = subCategories;
     }
 
@@ -126,7 +128,6 @@ public class Post extends PanacheEntity {
         this.videos = videos;
     }
 
-
     public List<UserRatingPost> getUserRatingsPost() {
         return this.userRatingsPost;
     }
@@ -135,5 +136,12 @@ public class Post extends PanacheEntity {
         this.userRatingsPost = userRatingsPost;
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
 }

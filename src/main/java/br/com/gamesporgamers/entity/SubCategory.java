@@ -17,7 +17,6 @@ public class SubCategory extends PanacheEntity {
     private String name;
 
     @ManyToMany
-    @JsonIgnore
     private List<Category> categories;
 
     @ManyToMany

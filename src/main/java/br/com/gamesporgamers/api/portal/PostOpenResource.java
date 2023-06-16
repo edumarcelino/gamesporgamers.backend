@@ -19,8 +19,8 @@ public class PostOpenResource {
     PostService postService;
 
     @GET
-    public List<Post> getAllPosts() {
-        return postService.getAllPosts();
+    public List<Post> listAllOrderedByDate() {
+        return postService.listAllOrderedByDate();
     }
 
     @GET
