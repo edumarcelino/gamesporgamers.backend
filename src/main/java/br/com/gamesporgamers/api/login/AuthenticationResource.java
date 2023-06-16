@@ -19,7 +19,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 @Path("/user")
-public class AuthenticationREST {
+public class AuthenticationResource {
 
     @Inject
     PBKDF2Encoder passwordEncoder;
