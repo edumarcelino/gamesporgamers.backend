@@ -1,9 +1,10 @@
 package br.com.gamesporgamers.entity;
 
 import jakarta.persistence.CascadeType;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -12,26 +13,23 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import br.com.gamesporgamers.entity.enumTypes.Role;
 import io.quarkus.elytron.security.common.BcryptUtil;
-import io.quarkus.security.jpa.Password;
-import io.quarkus.security.jpa.Roles;
-import io.quarkus.security.jpa.UserDefinition;
-import io.quarkus.security.jpa.Username;
 
 @Entity
 @Table(name = "users")
-@UserDefinition
+
 public class User extends PanacheEntity {
 
-    @Username
+    @Column(unique = true)
     public String username;
 
-    @Password
     public String password;
 
-    @Roles
-    public String role;
+    @Enumerated(EnumType.STRING)
+    public Set<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
@@ -42,33 +40,13 @@ public class User extends PanacheEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRatingPost> userRating = new ArrayList<>();
 
-    public User(String username, String password, String role) {
+    public User(String username, String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
 
     public User() {
-    }
-
-    /**
-     * Adds a new user to the database
-     * 
-     * @param username the username
-     * @param password the unencrypted password (it will be encrypted with bcrypt)
-     * @param role     the comma-separated roles
-     */
-    public static void add(String username, String password, String role) {
-        User user = new User();
-        user.username = username;
-        user.password = BcryptUtil.bcryptHash(password);
-        user.role = role;
-        user.persist();
-    }
-
-    public static boolean exists(String username) {
-        PanacheQuery<User> query = find("username", username);
-        return query.count() > 0;
     }
 
     public String getUsername() {
@@ -87,12 +65,20 @@ public class User extends PanacheEntity {
         this.password = password;
     }
 
-    public String getRole() {
-        return this.role;
+    public Set<Role> getRoles() {
+        return this.roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<UserRatingPost> getUserRating() {
+        return this.userRating;
+    }
+
+    public void setUserRating(List<UserRatingPost> userRating) {
+        this.userRating = userRating;
     }
 
     public List<Comment> getComments() {
@@ -109,6 +95,38 @@ public class User extends PanacheEntity {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " username='" + getUsername() + "'" +
+                ", password='" + getPassword() + "'" +
+                ", roles='" + getRoles() + "'" +
+                ", comments='" + getComments() + "'" +
+                ", posts='" + getPosts() + "'" +
+                ", userRating='" + getUserRating() + "'" +
+                "}";
+    }
+
+    /**
+     * Adds a new user to the database
+     * 
+     * @param username the username
+     * @param password the unencrypted password (it will be encrypted with bcrypt)
+     * @param role     the comma-separated roles
+     */
+    public static void add(String username, String password, Set<Role> roles) {
+        User user = new User();
+        user.username = username;
+        user.password = BcryptUtil.bcryptHash(password);
+        user.roles = roles;
+        user.persist();
+    }
+
+    public static boolean exists(String username) {
+        PanacheQuery<User> query = find("username", username);
+        return query.count() > 0;
     }
 
 }

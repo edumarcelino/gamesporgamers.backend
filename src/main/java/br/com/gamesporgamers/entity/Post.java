@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.gamesporgamers.entity.enumTypes.PostRatingEnum;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -125,6 +124,15 @@ public class Post extends PanacheEntity {
 
     public void setVideos(List<Video> videos) {
         this.videos = videos;
+    }
+
+
+    public List<UserRatingPost> getUserRatingsPost() {
+        return this.userRatingsPost;
+    }
+
+    public void setUserRatingsPost(List<UserRatingPost> userRatingsPost) {
+        this.userRatingsPost = userRatingsPost;
     }
 
 

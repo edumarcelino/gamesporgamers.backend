@@ -1,15 +1,10 @@
 package br.com.gamesporgamers.api.admin;
 
 import br.com.gamesporgamers.entity.Post;
+import br.com.gamesporgamers.entity.dto.PostDTO;
 import br.com.gamesporgamers.service.PostService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -24,8 +19,8 @@ public class PostRestrictResource {
 
     @POST
     @Transactional
-    public Response createPost(Post post) {
-        postService.addPost(post);
+    public Response createPost(PostDTO postDto) {
+        postService.addPost(postDto);
         return Response.status(Response.Status.CREATED).build();
     }
 

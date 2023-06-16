@@ -6,11 +6,14 @@ import jakarta.inject.Singleton;
 import jakarta.transaction.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import br.com.gamesporgamers.entity.Category;
 import br.com.gamesporgamers.entity.SubCategory;
 import br.com.gamesporgamers.entity.User;
+import br.com.gamesporgamers.entity.enumTypes.Role;
 import br.com.gamesporgamers.service.CategoryService;
 import br.com.gamesporgamers.service.SubCategoryService;
 import io.quarkus.runtime.StartupEvent;
@@ -28,13 +31,20 @@ public class Startup {
     public void loadUsers(@Observes StartupEvent evt) {
 
         List<User> users = new ArrayList<>();
+        Set<Role> rolesAdmin = new HashSet<>();
+        rolesAdmin.add(Role.ADMIN);
+        rolesAdmin.add(Role.USER);
 
-        users.add(new User("admin", "password@2305", "admin"));
-        users.add(new User("user", "password@2305", "user"));
+        Set<Role> rolesUser = new HashSet<>();
+        rolesUser.add(Role.USER);
+        
+
+        users.add(new User("admin", "password@2305", rolesAdmin));
+        users.add(new User("user", "password@2305", rolesUser));
 
         for (User user : users) {
             if (!User.exists(user.getUsername())) {
-                User.add(user.getUsername(), user.getPassword(), user.getRole());
+                User.add(user.getUsername(), user.getPassword(), user.getRoles());
             }
         }
 
