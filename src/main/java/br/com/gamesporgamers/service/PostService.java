@@ -24,13 +24,13 @@ public class PostService {
     }
 
     public void addPost(PostDTO postDTO) {
+        
         // Mapear o DTO para a entidade Post
         Post post = new Post();
         post.setPostText(postDTO.getPostText());
         post.setPostTextHTML(postDTO.getPostTextHTML());
         post.setDatePost(postDTO.getDatePost());
         post.setHighlighted(postDTO.isHighlighted());
-        // Mapear os demais atributos do DTO para a entidade Post
 
         // Persistir o post no banco de dados
         postRepository.persist(post);
@@ -52,4 +52,5 @@ public class PostService {
         return postRepository.findByUser(user);
     }
 
+    
 }

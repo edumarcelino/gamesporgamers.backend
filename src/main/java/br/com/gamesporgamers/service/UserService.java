@@ -13,8 +13,8 @@ public class UserService {
     @Inject
     UserRepository userRepository;
 
-    public User findByUsernameAndPassword(AuthRequestDTO authRequest) {
-        return userRepository.findByUsernameAndPassword(authRequest.getUsername(), authRequest.getPassword());
+    public User findByUsername(AuthRequestDTO authRequest) {
+        return userRepository.findByUsername(authRequest.getUsername());
     }
 
     public void addUser(User user) {

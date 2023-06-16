@@ -6,7 +6,7 @@ import br.com.gamesporgamers.entity.dto.auth.AuthResponseDTO;
 import br.com.gamesporgamers.entity.User;
 import br.com.gamesporgamers.entity.dto.auth.AuthRequestDTO;
 import br.com.gamesporgamers.service.UserService;
-import br.com.gamesporgamers.util.PBKDF2Encoder;
+import br.com.gamesporgamers.util.PasswordUtils;
 import br.com.gamesporgamers.util.TokenUtils;
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
@@ -19,9 +19,6 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Path("/auth")
 public class AuthenticationResource {
-
-    @Inject
-    PBKDF2Encoder passwordEncoder;
 
     @Inject
     UserService userService;
@@ -37,20 +34,27 @@ public class AuthenticationResource {
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(AuthRequestDTO authRequest) {
-        User user = userService.findByUsernameAndPassword(authRequest);
-        System.out.println(passwordEncoder.encode(authRequest.getPassword()));
+        User user = userService.findByUsername(authRequest);
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        System.out.println(authRequest.getUsername());
+        System.out.println(authRequest.getPassword());
+        System.out.println(PasswordUtils.checkPassword(authRequest.getPassword(), user.getPassword()));
         if (user != null) {
-            try {
-                return Response
-                        .ok(new AuthResponseDTO(
-                                TokenUtils.generateToken(user.getUsername(), user.getRoles(), duration, issuer)))
-                        .build();
-            } catch (Exception e) {
+            if (PasswordUtils.checkPassword(authRequest.getPassword(), user.getPassword())) {
+                try {
+                    return Response
+                            .ok(new AuthResponseDTO(
+                                    TokenUtils.generateToken(user.getUsername(), user.getRoles(), duration, issuer)))
+                            .build();
+                } catch (Exception e) {
+                    return Response.status(Status.UNAUTHORIZED).build();
+                }
+            } else {
                 return Response.status(Status.UNAUTHORIZED).build();
             }
         } else {
             return Response.status(Status.UNAUTHORIZED).build();
         }
     }
-
 }

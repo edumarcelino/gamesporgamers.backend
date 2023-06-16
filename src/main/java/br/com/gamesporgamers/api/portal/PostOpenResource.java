@@ -19,7 +19,7 @@ public class PostOpenResource {
     PostService postService;
 
     @GET
-    public List<Post> getgetAllPosts() {
+    public List<Post> getAllPosts() {
         return postService.getAllPosts();
     }
 

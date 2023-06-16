@@ -116,13 +116,6 @@ public class User extends PanacheEntity {
      * @param password the unencrypted password (it will be encrypted with bcrypt)
      * @param role     the comma-separated roles
      */
-    public static void add(String username, String password, Set<Role> roles) {
-        User user = new User();
-        user.username = username;
-        user.password = BcryptUtil.bcryptHash(password);
-        user.roles = roles;
-        user.persist();
-    }
 
     public static boolean exists(String username) {
         PanacheQuery<User> query = find("username", username);

@@ -10,20 +10,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import br.com.gamesporgamers.entity.Category;
 import br.com.gamesporgamers.entity.SubCategory;
 import br.com.gamesporgamers.entity.User;
 import br.com.gamesporgamers.entity.enumTypes.Role;
 import br.com.gamesporgamers.service.CategoryService;
 import br.com.gamesporgamers.service.SubCategoryService;
-import br.com.gamesporgamers.util.PBKDF2Encoder;
+import br.com.gamesporgamers.service.UserService;
 import io.quarkus.runtime.StartupEvent;
 
 @Singleton
 public class Startup {
-
-    @Inject
-    PBKDF2Encoder passwordEncoder;
 
     @Inject
     CategoryService categoryService;
@@ -31,10 +30,12 @@ public class Startup {
     @Inject
     SubCategoryService subCategoryService;
 
+    @Inject
+    UserService userService;
+
     @Transactional
     public void loadUsers(@Observes StartupEvent evt) {
 
-        List<User> users = new ArrayList<>();
         Set<Role> rolesAdmin = new HashSet<>();
         rolesAdmin.add(Role.ADMIN);
         rolesAdmin.add(Role.USER);
@@ -42,14 +43,11 @@ public class Startup {
         Set<Role> rolesUser = new HashSet<>();
         rolesUser.add(Role.USER);
 
-        users.add(new User("admin", passwordEncoder.encode("password@2305"), rolesAdmin));
-        users.add(new User("user", passwordEncoder.encode("password@2305"), rolesUser));
+        String passwordHashed = BCrypt.hashpw("password@2305", BCrypt.gensalt());
+        System.out.println(passwordHashed);
 
-        for (User user : users) {
-            if (!User.exists(user.getUsername())) {
-                User.add(user.getUsername(), user.getPassword(), user.getRoles());
-            }
-        }
+        userService.addUser(new User("admin", passwordHashed, rolesAdmin));
+        userService.addUser(new User("user", passwordHashed, rolesUser));
 
     }
 
