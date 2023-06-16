@@ -2,9 +2,9 @@ package br.com.gamesporgamers.api.login;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import br.com.gamesporgamers.entity.dto.auth.AuthResponseDTO;
 import br.com.gamesporgamers.entity.User;
 import br.com.gamesporgamers.entity.dto.auth.AuthRequestDTO;
-import br.com.gamesporgamers.entity.dto.auth.AuthResponseDTO;
 import br.com.gamesporgamers.service.PostService;
 import br.com.gamesporgamers.service.UserService;
 import br.com.gamesporgamers.util.PBKDF2Encoder;

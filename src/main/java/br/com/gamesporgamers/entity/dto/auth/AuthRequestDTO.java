@@ -1,4 +1,4 @@
-package br.com.gamesporgamers.dto;
+package br.com.gamesporgamers.entity.dto.auth;
 
 public class AuthRequestDTO {
 
