@@ -17,12 +17,12 @@ public class CategoryService {
         return categoryRepository.listAllOrderedByName();
     }
 
-    public Category getCategoryById(Long categoryId) {
-        return categoryRepository.findById(categoryId);
+    public Category getCategoryById(Long subCategoryId) {
+        return categoryRepository.findById(subCategoryId);
     }
 
-    public void addCategory(Category category) {
-        categoryRepository.persist(category);
+    public void addCategory(Category Category) {
+        categoryRepository.persist(Category);
     }
 
     public void deleteCategory(Category category) {

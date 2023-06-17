@@ -9,7 +9,7 @@ import java.util.List;
 import io.quarkus.panache.common.Sort;
 
 @ApplicationScoped
-public class CommentRepository implements PanacheRepository<Platform> {
+public class PlatformRepository implements PanacheRepository<Platform> {
 
     public List<Platform> listAllOrderedByName() {
         return this.listAll(Sort.by("name").ascending());

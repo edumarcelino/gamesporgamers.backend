@@ -12,12 +12,12 @@ import java.util.Set;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import br.com.gamesporgamers.entity.Platform;
 import br.com.gamesporgamers.entity.Category;
-import br.com.gamesporgamers.entity.SubCategory;
 import br.com.gamesporgamers.entity.User;
 import br.com.gamesporgamers.entity.enumTypes.Role;
+import br.com.gamesporgamers.service.PlatformService;
 import br.com.gamesporgamers.service.CategoryService;
-import br.com.gamesporgamers.service.SubCategoryService;
 import br.com.gamesporgamers.service.UserService;
 import io.quarkus.runtime.StartupEvent;
 
@@ -25,10 +25,10 @@ import io.quarkus.runtime.StartupEvent;
 public class Startup {
 
     @Inject
-    CategoryService categoryService;
+    PlatformService platformService;
 
     @Inject
-    SubCategoryService subCategoryService;
+    CategoryService categoryService;
 
     @Inject
     UserService userService;
@@ -44,7 +44,6 @@ public class Startup {
         rolesUser.add(Role.USER);
 
         String passwordHashed = BCrypt.hashpw("password@2305", BCrypt.gensalt());
-        System.out.println(passwordHashed);
 
         userService.addUser(new User("admin", passwordHashed, rolesAdmin));
         userService.addUser(new User("user", passwordHashed, rolesUser));
@@ -52,40 +51,38 @@ public class Startup {
     }
 
     @Transactional
-    public void loadCategoriesAndSubCategories(@Observes StartupEvent evt) {
+    public void loadPlatformsAndCategories(@Observes StartupEvent evt) {
 
-        // Primeiro cadastro as categorias
+        // Primeiro cadastro das plataformas
+        List<String> platformsName = new ArrayList<String>();
+
+        platformsName.add("X-Box");
+        platformsName.add("Playstation");
+        platformsName.add("Switch");
+        platformsName.add("PC");
+        platformsName.add("Portátil");
+        platformsName.add("Celular");
+
+        for (String platformName : platformsName) {
+            Platform platform = new Platform();
+            platform.setName(platformName);
+            platform.setVisible(true);
+            platformService.addPlatform(platform);
+        }
+
+        // Gera todas as subcategorias
         List<String> categoriesName = new ArrayList<String>();
+        categoriesName.add("Notícias");
+        categoriesName.add("Análises");
+        categoriesName.add("Vídeos");
+        categoriesName.add("Artigos");
+        categoriesName.add("Promoções");
 
-        categoriesName.add("X-Box");
-        categoriesName.add("Playstation");
-        categoriesName.add("Switch");
-        categoriesName.add("PC");
-        categoriesName.add("Portátil");
-        categoriesName.add("Celular");
-
-        // Valida se a categoria já existe ou não
         for (String categoryName : categoriesName) {
-            Category category = new Category();
-            category.setName(categoryName);
+            Category category = new Category(categoryName, true);
             categoryService.addCategory(category);
         }
 
-        List<Category> categories = categoryService.getAllCategories();
-
-        List<String> subCategoriesName = new ArrayList<String>();
-        subCategoriesName.add("Notícias");
-        subCategoriesName.add("Análises");
-        subCategoriesName.add("Vídeos");
-        subCategoriesName.add("Artigos");
-        subCategoriesName.add("Promoções");
-
-        for (String subCategoryName : subCategoriesName) {
-            SubCategory subCategory = new SubCategory();
-            subCategory.setName(subCategoryName);
-            subCategory.setCategories(categories);
-            subCategoryService.addSubCategory(subCategory);
-        }
 
     }
 

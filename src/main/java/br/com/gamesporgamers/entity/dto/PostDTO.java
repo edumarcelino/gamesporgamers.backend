@@ -9,6 +9,9 @@ public class PostDTO {
     private String postTextHTML;
     private Date datePost;
     private boolean highlighted;
+    private int countComments;
+    private int countLikes;
+    private int countDislikes;
 
     public String getPostText() {
         return this.postText;
@@ -46,6 +49,30 @@ public class PostDTO {
         this.highlighted = highlighted;
     }
 
+    public int getCountComments() {
+        return this.countComments;
+    }
+
+    public void setCountComments(int countComments) {
+        this.countComments = countComments;
+    }
+
+    public int getCountLikes() {
+        return this.countLikes;
+    }
+
+    public void setCountLikes(int countLikes) {
+        this.countLikes = countLikes;
+    }
+
+    public int getCountDislikes() {
+        return this.countDislikes;
+    }
+
+    public void setCountDislikes(int countDislikes) {
+        this.countDislikes = countDislikes;
+    }
+
     // Método para mapear o DTO para a entidade Post
     public Post mapDTOtoPost() {
         Post post = new Post();
@@ -65,4 +92,5 @@ public class PostDTO {
         dto.setHighlighted(post.isHighlighted());
         return dto;
     }
+
 }

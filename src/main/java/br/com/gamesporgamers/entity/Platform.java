@@ -3,29 +3,30 @@ package br.com.gamesporgamers.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import jakarta.persistence.Entity;
-
 import jakarta.persistence.ManyToMany;
 
 @Entity
-public class Category extends PanacheEntity {
+public class Platform extends PanacheEntity {
 
+    @JsonProperty("name")
     private String name;
 
     private Boolean visible;
 
     // Relacionamento many-to-many com Post
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "platforms")
     @JsonIgnore
     private List<Post> posts;
 
-    public Category() {
+    public Platform() {
     }
 
-    public Category(String name, Boolean visible) {
+    public Platform(String name, Boolean visible) {
         this.name = name;
         this.visible = visible;
     }

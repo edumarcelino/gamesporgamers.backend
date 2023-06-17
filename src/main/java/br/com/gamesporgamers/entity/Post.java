@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -36,21 +37,29 @@ public class Post extends PanacheEntity {
     private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Video> videos = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<UserRatingPost> userRatingsPost = new ArrayList<>();
 
-    // TODO: Rever essa ligação, um post possui categoria e subcategoria.
-    @ManyToMany(mappedBy = "posts", fetch = FetchType.LAZY)
-    @JsonProperty("subcategories")
-    private List<SubCategory> subCategories;
+    // Relacionamento many-to-many com Platform
+    @ManyToMany
+    @JoinTable(name = "post_platforms", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
+    private List<Platform> platforms;
+
+    // Relacionamento many-to-many com Category
+    @ManyToMany
+    @JoinTable(name = "post_category", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categories;
 
     public String getPostText() {
         return this.postText;
@@ -82,14 +91,6 @@ public class Post extends PanacheEntity {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
-    }
-
-    public List<SubCategory> getSubCategories() {
-        return this.subCategories;
-    }
-
-    public void setSubCategories(List<SubCategory> subCategories) {
-        this.subCategories = subCategories;
     }
 
     public boolean isHighlighted() {
@@ -142,6 +143,22 @@ public class Post extends PanacheEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Platform> getPlatforms() {
+        return this.platforms;
+    }
+
+    public void setPlatforms(List<Platform> platforms) {
+        this.platforms = platforms;
+    }
+
+    public List<Category> getCategories() {
+        return this.categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
 }
