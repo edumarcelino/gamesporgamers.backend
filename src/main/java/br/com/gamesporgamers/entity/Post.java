@@ -33,6 +33,8 @@ public class Post extends PanacheEntity {
 
     private boolean highlighted;
 
+    private String urlMainImage;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
@@ -159,6 +161,14 @@ public class Post extends PanacheEntity {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public String getUrlMainImage() {
+        return this.urlMainImage;
+    }
+
+    public void setUrlMainImage(String urlMainImage) {
+        this.urlMainImage = urlMainImage;
     }
 
 }

@@ -60,8 +60,10 @@ public class Startup {
         platformsName.add("Playstation");
         platformsName.add("Switch");
         platformsName.add("PC");
-        platformsName.add("Portátil");
-        platformsName.add("Celular");
+        platformsName.add("Hardware");
+        platformsName.add("Portatéis");
+        platformsName.add("Android");
+        platformsName.add("IOS");
 
         for (String platformName : platformsName) {
             Platform platform = new Platform();
