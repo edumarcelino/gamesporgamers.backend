@@ -61,6 +61,9 @@ public class Startup {
         platformsName.add("Switch");
         platformsName.add("PC");
         platformsName.add("Hardware");
+        platformsName.add("AMD");
+        platformsName.add("Intel");
+        platformsName.add("Steam Deck");
         platformsName.add("Portatéis");
         platformsName.add("Android");
         platformsName.add("IOS");
