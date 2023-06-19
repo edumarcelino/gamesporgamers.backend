@@ -35,22 +35,14 @@ public class AuthenticationResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(AuthRequestDTO authRequest) {
         User user = userService.findByUsername(authRequest);
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
-        System.out.println(authRequest.getUsername());
-        System.out.println(authRequest.getPassword());
-        System.out.println(PasswordUtils.checkPassword(authRequest.getPassword(), user.getPassword()));
-        if (user != null) {
-            if (PasswordUtils.checkPassword(authRequest.getPassword(), user.getPassword())) {
-                try {
-                    return Response
-                            .ok(new AuthResponseDTO(
-                                    TokenUtils.generateToken(user.getUsername(), user.getRoles(), duration, issuer)))
-                            .build();
-                } catch (Exception e) {
-                    return Response.status(Status.UNAUTHORIZED).build();
-                }
-            } else {
+
+        if (PasswordUtils.checkPassword(authRequest.getPassword(), user.getPassword())) {
+            try {
+                return Response
+                        .ok(new AuthResponseDTO(
+                                TokenUtils.generateToken(user.getUsername(), user.getRoles(), duration, issuer)))
+                        .build();
+            } catch (Exception e) {
                 return Response.status(Status.UNAUTHORIZED).build();
             }
         } else {

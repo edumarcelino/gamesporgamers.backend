@@ -3,7 +3,6 @@ package br.com.gamesporgamers.api.portal;
 import java.util.List;
 
 import br.com.gamesporgamers.entity.Category;
-import br.com.gamesporgamers.entity.Platform;
 import br.com.gamesporgamers.service.CategoryService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;

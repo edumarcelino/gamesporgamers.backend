@@ -14,15 +14,17 @@ import io.smallrye.jwt.build.JwtClaimsBuilder;
 
 public class TokenUtils {
 
-	public static String generateToken(String username, Set<Role> roles, Long duration, String issuer) throws Exception {
+	public static String generateToken(String username, Set<Role> roles, Long duration, String issuer)
+			throws Exception {
 		String privateKeyLocation = "/privatekey.pem";
 		PrivateKey privateKey = readPrivateKey(privateKeyLocation);
-		
+
 		JwtClaimsBuilder claimsBuilder = Jwt.claims();
 		long currentTimeInSecs = currentTimeInSecs();
-		
+
 		Set<String> groups = new HashSet<>();
-		for (Role role : roles) groups.add(role.toString());
+		for (Role role : roles)
+			groups.add(role.toString());
 
 		claimsBuilder.issuer(issuer);
 		claimsBuilder.subject(username);
@@ -30,7 +32,7 @@ public class TokenUtils {
 		claimsBuilder.expiresAt(currentTimeInSecs + duration);
 		claimsBuilder.groups(groups);
 
-		return claimsBuilder.jws().signatureKeyId(privateKeyLocation).sign(privateKey);
+		return claimsBuilder.jws().keyId(privateKeyLocation).sign(privateKey);
 	}
 
 	public static PrivateKey readPrivateKey(final String pemResName) throws Exception {
@@ -49,7 +51,7 @@ public class TokenUtils {
 		return kf.generatePrivate(keySpec);
 	}
 
-   public static byte[] toEncodedBytes(final String pemEncoded) {
+	public static byte[] toEncodedBytes(final String pemEncoded) {
 		final String normalizedPem = removeBeginEnd(pemEncoded);
 		return Base64.getDecoder().decode(normalizedPem);
 	}
@@ -66,6 +68,5 @@ public class TokenUtils {
 		long currentTimeMS = System.currentTimeMillis();
 		return (int) (currentTimeMS / 1000);
 	}
-
 
 }
