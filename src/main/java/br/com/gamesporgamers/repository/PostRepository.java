@@ -20,6 +20,7 @@ public class PostRepository implements PanacheRepository<Post> {
         return this.listAll(Sort.by("datePost").descending());
     }
 
+
     public List<Post> findByKeyword(String keyword) {
         String keywordPattern = "%" + keyword + "%";
         return find("postText like ?1", keywordPattern).list();

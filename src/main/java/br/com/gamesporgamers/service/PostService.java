@@ -1,5 +1,6 @@
 package br.com.gamesporgamers.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.gamesporgamers.entity.Post;
@@ -18,6 +19,16 @@ public class PostService {
     public List<Post> listAllOrderedByDate() {
         return postRepository.listAllOrderedByDate();
     }
+
+    public List<PostDTO> getAllPostDTO(){
+        List<Post> posts = postRepository.listAllOrderedByDate();
+        List<PostDTO> postsDTO = new ArrayList<PostDTO>();
+        for (Post post : posts) {
+            postsDTO.add(PostDTO.mapPostToDTO(post));
+        }
+        return postsDTO;
+    }
+    
 
     public Post getPostById(Long postId) {
         return postRepository.findById(postId);

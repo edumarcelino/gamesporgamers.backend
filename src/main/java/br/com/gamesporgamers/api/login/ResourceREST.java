@@ -12,19 +12,25 @@ import jakarta.ws.rs.core.Response;
 public class ResourceREST {
 
 	@RolesAllowed("USER")
-	@GET @Path("/user") @Produces(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/user")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response user() {
 		return Response.ok(new MessageDTO("Content for user")).build();
 	}
-	
+
 	@RolesAllowed("ADMIN")
-	@GET @Path("/admin") @Produces(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/admin")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response admin() {
 		return Response.ok(new MessageDTO("Content for admin")).build();
 	}
-	
-	@RolesAllowed({"USER", "ADMIN"})
-	@GET @Path("/user-or-admin") @Produces(MediaType.APPLICATION_JSON)
+
+	@RolesAllowed({ "USER", "ADMIN" })
+	@GET
+	@Path("/user-or-admin")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response userOrAdmin() {
 		return Response.ok(new MessageDTO("Content for user or admin")).build();
 	}

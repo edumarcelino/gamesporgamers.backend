@@ -1,8 +1,11 @@
 package br.com.gamesporgamers.api.admin;
 
+import java.util.List;
+
 import br.com.gamesporgamers.entity.Post;
 import br.com.gamesporgamers.entity.dto.PostDTO;
 import br.com.gamesporgamers.service.PostService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
@@ -17,6 +20,13 @@ public class PostRestrictResource {
     @Inject
     PostService postService;
 
+    @RolesAllowed("ADMIN")
+    @GET
+    public List<Post> listAllOrderedByDate() {
+        return postService.listAllOrderedByDate();
+    }
+
+    @RolesAllowed("ADMIN")
     @POST
     @Transactional
     public Response createPost(PostDTO postDto) {
@@ -24,6 +34,7 @@ public class PostRestrictResource {
         return Response.status(Response.Status.CREATED).build();
     }
 
+    @RolesAllowed("ADMIN")
     @PUT
     @Path("/{id}")
     @Transactional
@@ -39,6 +50,7 @@ public class PostRestrictResource {
         return Response.status(Response.Status.OK).build();
     }
 
+    @RolesAllowed("ADMIN")
     @DELETE
     @Path("/{id}")
     @Transactional

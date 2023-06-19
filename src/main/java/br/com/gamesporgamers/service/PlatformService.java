@@ -13,7 +13,7 @@ public class PlatformService {
     @Inject
     PlatformRepository platformRepository;
 
-    public List<Platform> getAllCategories() {
+    public List<Platform> getAllPlatforms() {
         return platformRepository.listAllOrderedByName();
     }
 
