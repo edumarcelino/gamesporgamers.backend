@@ -11,7 +11,7 @@ import br.com.gamesporgamers.service.BadgeService;
 @Path("/api/v1/badges")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class PlatformResource {
+public class BadgeResource {
 
     @Inject
     BadgeService badgeService;
