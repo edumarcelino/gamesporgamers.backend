@@ -9,35 +9,35 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
-import br.com.gamesporgamers.entity.Platform;
-import br.com.gamesporgamers.service.PlatformService;
+import br.com.gamesporgamers.entity.Badge;
+import br.com.gamesporgamers.service.BadgeService;
 
-@Path("/api/v1/restrict/platforms")
+@Path("/api/v1/restrict/badges")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class PlatformRestricResource {
+public class BadgesRestricResource {
 
     @Inject
-    PlatformService platformService;
+    BadgeService badgeService;
 
     @RolesAllowed("ADMIN")
     @GET
-    public List<Platform> getAllPlatforms() {
-        return platformService.getAllPlatforms();
+    public List<Badge> getAllBadges() {
+        return badgeService.getAllBadges();
     }
 
     @RolesAllowed("ADMIN")
     @GET
     @Path("/{id}")
-    public Platform getPlatformById(@PathParam("id") Long id) {
-        return platformService.getPlatformById(id);
+    public Badge getBadgeById(@PathParam("id") Long id) {
+        return badgeService.getBadgeById(id);
     }
 
     @RolesAllowed("ADMIN")
     @POST
     @Transactional
-    public Response createPlatform(Platform platform) {
-        platformService.addPlatform(platform);
+    public Response createBadge(Badge badge) {
+        badgeService.addBadge(badge);
         return Response.status(Response.Status.CREATED).build();
     }
 
@@ -45,14 +45,14 @@ public class PlatformRestricResource {
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response updatePlatform(@PathParam("id") Long id, Platform updatedCategory) {
-        Platform platform = platformService.getPlatformById(id);
-        if (platform == null) {
+    public Response updatePlatform(@PathParam("id") Long id, Badge updatedBadge) {
+        Badge badge = badgeService.getBadgeById(id);
+        if (badge == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        platform.setName(updatedCategory.getName());
+        badge.setName(updatedBadge.getName());
         // Atualize outros atributos, se necessário
-        platformService.updatePlatform(platform);
+        badgeService.updateBadge(badge);
         return Response.status(Response.Status.OK).build();
     }
 
@@ -61,11 +61,11 @@ public class PlatformRestricResource {
     @Path("/{id}")
     @Transactional
     public Response deletePlatform(@PathParam("id") Long id) {
-        Platform category = platformService.getPlatformById(id);
-        if (category == null) {
+        Badge badge = badgeService.getBadgeById(id);
+        if (badge == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        platformService.deletePlatform(category);
+        badgeService.deleteBadge(badge);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 }

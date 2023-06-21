@@ -20,6 +20,11 @@ public class PostRepository implements PanacheRepository<Post> {
         return this.listAll(Sort.by("datePost").descending());
     }
 
+    public List<Post> listLastFiveOrderedByDate() {
+        List<Post> allPosts = this.listAll(Sort.by("datePost").descending());
+        int startIndex = Math.max(0, allPosts.size() - 5);
+        return allPosts.subList(startIndex, allPosts.size());
+    }
 
     public List<Post> findByKeyword(String keyword) {
         String keywordPattern = "%" + keyword + "%";

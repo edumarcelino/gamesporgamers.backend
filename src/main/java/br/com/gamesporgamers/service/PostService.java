@@ -29,6 +29,9 @@ public class PostService {
         return postsDTO;
     }
     
+    public List<Post> listLastFiveOrderedByDate(){
+        return postRepository.listLastFiveOrderedByDate();
+    }
 
     public Post getPostById(Long postId) {
         return postRepository.findById(postId);

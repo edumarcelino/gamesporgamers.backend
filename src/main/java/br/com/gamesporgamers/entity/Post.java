@@ -22,6 +22,8 @@ public class Post extends PanacheEntity {
 
     private String title;
 
+    private String description;
+
     @Column(columnDefinition = "TEXT")
     private String postText;
 
@@ -35,6 +37,7 @@ public class Post extends PanacheEntity {
     private String urlMainImage;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -42,6 +45,7 @@ public class Post extends PanacheEntity {
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Image> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -54,13 +58,8 @@ public class Post extends PanacheEntity {
 
     // Relacionamento many-to-many com Platform
     @ManyToMany
-    @JoinTable(name = "post_platforms", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
-    private List<Platform> platforms;
-
-    // Relacionamento many-to-many com Category
-    @ManyToMany
-    @JoinTable(name = "post_category", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Category> categories;
+    @JoinTable(name = "post_badges", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "badge_id"))
+    private List<Badge> badges;
 
     public String getPostText() {
         return this.postText;
@@ -146,20 +145,20 @@ public class Post extends PanacheEntity {
         this.title = title;
     }
 
-    public List<Platform> getPlatforms() {
-        return this.platforms;
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setPlatforms(List<Platform> platforms) {
-        this.platforms = platforms;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<Category> getCategories() {
-        return this.categories;
+    public List<Badge> getBadges() {
+        return this.badges;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setBadges(List<Badge> badges) {
+        this.badges = badges;
     }
 
     public String getUrlMainImage() {

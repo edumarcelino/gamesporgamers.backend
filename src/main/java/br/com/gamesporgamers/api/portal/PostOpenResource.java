@@ -23,6 +23,12 @@ public class PostOpenResource {
         return postService.listAllOrderedByDate();
     }
 
+@GET
+    @Path("/mainpost")
+    public List<Post> listLastFiveOrderedByDate() {
+        return postService.listLastFiveOrderedByDate();
+    }
+
     @GET
     @Path("/{id}")
     public Post getPostById(@PathParam("id") Long id) {
