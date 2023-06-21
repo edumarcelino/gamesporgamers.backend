@@ -3,11 +3,11 @@ package br.com.gamesporgamers.api.portal;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-
-
 import java.util.List;
 
 import br.com.gamesporgamers.entity.Post;
+import br.com.gamesporgamers.entity.Badge;
+import br.com.gamesporgamers.service.BadgeService;
 import br.com.gamesporgamers.service.PostService;
 
 @Path("/api/v1/open/posts")
@@ -18,12 +18,22 @@ public class PostOpenResource {
     @Inject
     PostService postService;
 
+    @Inject
+    BadgeService badgeService;
+
     @GET
     public List<Post> listAllOrderedByDate() {
         return postService.listAllOrderedByDate();
     }
 
-@GET
+    @GET
+    @Path("/bybadges")
+    public List<Post> getPostsByBadgesOrderedByDate(@QueryParam("badges") List<String> badgesNames) {
+        List<Badge> badgeList = badgeService.findByNames(badgesNames);
+        return postService.getPostsByBadgesOrderedByDate(badgeList);
+    }
+
+    @GET
     @Path("/mainpost")
     public List<Post> listLastFiveOrderedByDate() {
         return postService.listLastFiveOrderedByDate();

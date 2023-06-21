@@ -16,8 +16,6 @@ public class Badge extends PanacheEntity {
     @JsonProperty("name")
     private String name;
 
-    private Boolean visible;
-
     // Relacionamento many-to-many com Post
     @ManyToMany(mappedBy = "badges")
     @JsonIgnore
@@ -26,9 +24,13 @@ public class Badge extends PanacheEntity {
     public Badge() {
     }
 
-    public Badge(String name, Boolean visible) {
+    public Badge(String name, List<Post> posts) {
         this.name = name;
-        this.visible = visible;
+        this.posts = posts;
+    }
+
+    public Badge(String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -45,18 +47,6 @@ public class Badge extends PanacheEntity {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }
-
-    public Boolean isVisible() {
-        return this.visible;
-    }
-
-    public Boolean getVisible() {
-        return this.visible;
-    }
-
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
     }
 
 }

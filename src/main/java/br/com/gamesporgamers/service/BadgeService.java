@@ -33,4 +33,7 @@ public class BadgeService {
         badgeRepository.persistAndFlush(badge);
     }
 
+    public List<Badge> findByNames(List<String> badgeNames) {
+        return badgeRepository.findByNames(badgeNames);
+    }
 }

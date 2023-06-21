@@ -3,6 +3,7 @@ package br.com.gamesporgamers.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.gamesporgamers.entity.Badge;
 import br.com.gamesporgamers.entity.Post;
 import br.com.gamesporgamers.entity.User;
 import br.com.gamesporgamers.entity.dto.PostDTO;
@@ -20,7 +21,7 @@ public class PostService {
         return postRepository.listAllOrderedByDate();
     }
 
-    public List<PostDTO> getAllPostDTO(){
+    public List<PostDTO> getAllPostDTO() {
         List<Post> posts = postRepository.listAllOrderedByDate();
         List<PostDTO> postsDTO = new ArrayList<PostDTO>();
         for (Post post : posts) {
@@ -28,8 +29,12 @@ public class PostService {
         }
         return postsDTO;
     }
-    
-    public List<Post> listLastFiveOrderedByDate(){
+
+    public List<Post> getPostsByBadgesOrderedByDate(List<Badge> badges) {
+        return postRepository.getPostsByBadgesOrderedByDate(badges);
+    }
+
+    public List<Post> listLastFiveOrderedByDate() {
         return postRepository.listLastFiveOrderedByDate();
     }
 
@@ -38,7 +43,7 @@ public class PostService {
     }
 
     public void addPost(PostDTO postDTO) {
-        
+
         // Mapear o DTO para a entidade Post
         Post post = new Post();
         post.setPostText(postDTO.getPostText());
@@ -66,5 +71,4 @@ public class PostService {
         return postRepository.findByUser(user);
     }
 
-    
 }
