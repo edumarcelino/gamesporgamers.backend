@@ -6,6 +6,7 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 import br.com.gamesporgamers.entity.Post;
+import br.com.gamesporgamers.entity.dto.PostDTORequestParams;
 import br.com.gamesporgamers.entity.Badge;
 import br.com.gamesporgamers.service.BadgeService;
 import br.com.gamesporgamers.service.PostService;
@@ -26,11 +27,16 @@ public class PostOpenResource {
         return postService.listAllOrderedByDate();
     }
 
-    @GET
+    @POST
     @Path("/bybadges")
-    public List<Post> getPostsByBadgesOrderedByDate(@QueryParam("badges") List<String> badgesNames) {
-        List<Badge> badgeList = badgeService.findByNames(badgesNames);
-        return postService.getPostsByBadgesOrderedByDate(badgeList);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Post> getPostsByBadgesOrderedByDate(PostDTORequestParams requestParams) {
+
+        List<String> badgesNames = requestParams.getBadgesNames();
+        int page = requestParams.getPage();
+        int size = requestParams.getSize();
+
+        return postService.getPostsByBadgesOrderedByDate(badgesNames, page, size);
     }
 
     @GET

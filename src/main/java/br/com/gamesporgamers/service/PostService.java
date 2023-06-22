@@ -30,8 +30,8 @@ public class PostService {
         return postsDTO;
     }
 
-    public List<Post> getPostsByBadgesOrderedByDate(List<Badge> badges) {
-        return postRepository.getPostsByBadgesOrderedByDate(badges);
+    public List<Post> getPostsByBadgesOrderedByDate(List<String> badgeNames, int page, int size) {
+        return postRepository.getPostsByBadgesOrderedByDate(badgeNames, page, size);
     }
 
     public List<Post> listLastFiveOrderedByDate() {
