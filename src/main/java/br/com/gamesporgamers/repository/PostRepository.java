@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.gamesporgamers.entity.Badge;
 import br.com.gamesporgamers.entity.Post;
 import br.com.gamesporgamers.entity.User;
+import br.com.gamesporgamers.entity.dto.Resource.PostResourcePagination;
 import br.com.gamesporgamers.entity.enumTypes.PostRatingEnum;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Sort;
@@ -18,6 +19,8 @@ import jakarta.persistence.criteria.Root;
 @ApplicationScoped
 public class PostRepository implements PanacheRepository<Post> {
 
+    public static final int SIZE_POSTS = 4;
+
     @Inject
     CommentRepository commentRepository;
 
@@ -28,14 +31,14 @@ public class PostRepository implements PanacheRepository<Post> {
         return this.listAll(Sort.by("datePost").descending());
     }
 
-    public List<Post> listLastFiveOrderedByDate() {
-        return find("ORDER BY datePost DESC").page(0, 5).list();
+    public List<Post> listLastBySizeOrderedByDate() {
+        return find("ORDER BY datePost DESC").page(0, SIZE_POSTS).list();
     }
 
     public List<Post> getPostsByBadgesOrderedByDate(List<String> badgesName, int page, int size) {
         List<Post> posts = new ArrayList<>();
 
-        List<Post> listLastFiveOrderedByDate = listLastFiveOrderedByDate();
+        List<Post> listLastFiveOrderedByDate = listLastBySizeOrderedByDate();
 
         List<Badge> badges = badgeRepository.findByNames(badgesName);
 
@@ -78,6 +81,53 @@ public class PostRepository implements PanacheRepository<Post> {
         posts = resultList.subList(offset, Math.min(offset + size, resultList.size()));
 
         return posts;
+    }
+
+    public PostResourcePagination getPostsOrderedByDate(int page, int size) {
+        List<Post> posts = new ArrayList<>();
+
+        List<Post> listLastFiveOrderedByDate = listLastBySizeOrderedByDate();
+
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Post> query = cb.createQuery(Post.class);
+        Root<Post> root = query.from(Post.class);
+
+        query.select(root)
+                .orderBy(cb.desc(root.get("datePost")));
+
+        TypedQuery<Post> typedQuery = getEntityManager().createQuery(query);
+
+        // Obter a lista de Posts
+        List<Post> resultList = typedQuery.getResultList();
+
+        // Remover os Posts da lista listLastFiveOrderedByDate
+        resultList.removeAll(listLastFiveOrderedByDate);
+
+        // Obter o número total de resultados
+        int totalResults = resultList.size();
+
+        // Calcular o número total de páginas
+        int totalPages = (int) Math.ceil((double) totalResults / size);
+
+        // Ajustar a página se for inválida
+        if (page < 1) {
+            page = 1;
+        } else if (page > totalPages) {
+            page = totalPages;
+        }
+
+        // Calcular o offset e definir os limites da consulta
+        int offset = (page - 1) * size;
+        if (offset < 0) {
+            offset = 0;
+        }
+
+        // Definir os Posts da página atual
+        posts = resultList.subList(offset, Math.min(offset + size, resultList.size()));
+
+        PostResourcePagination postsResourcePagination = new PostResourcePagination(posts, totalPages);
+
+        return postsResourcePagination;
     }
 
     public List<Post> findByKeyword(String keyword) {

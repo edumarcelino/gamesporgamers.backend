@@ -6,8 +6,9 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 import br.com.gamesporgamers.entity.Post;
-import br.com.gamesporgamers.entity.dto.PostDTORequestParams;
-import br.com.gamesporgamers.entity.Badge;
+import br.com.gamesporgamers.entity.dto.Request.PaginatioRequestParams;
+import br.com.gamesporgamers.entity.dto.Request.PostDTORequestParams;
+import br.com.gamesporgamers.entity.dto.Resource.PostResourcePagination;
 import br.com.gamesporgamers.service.BadgeService;
 import br.com.gamesporgamers.service.PostService;
 
@@ -37,6 +38,15 @@ public class PostOpenResource {
         int size = requestParams.getSize();
 
         return postService.getPostsByBadgesOrderedByDate(badgesNames, page, size);
+    }
+
+    @POST
+    @Path("/postsexceptmain")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public PostResourcePagination getPostsOrderedByDate(PaginatioRequestParams requestParams) {
+        int page = requestParams.getPage();
+        int size = requestParams.getSize();
+        return postService.getPostsOrderedByDate(page, size);
     }
 
     @GET

@@ -4,20 +4,19 @@ import java.util.Date;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Video extends PanacheEntity{
+public class Video extends PanacheEntity {
 
     private String urlVideo;
+
+    private String description;
+
+    private String embedId;
 
     private String servicePublish;
 
     private Date datePublish;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Post post;
 
     public String getUrlVideo() {
         return this.urlVideo;
@@ -35,7 +34,6 @@ public class Video extends PanacheEntity{
         this.datePublish = datePublish;
     }
 
-
     public String getServicePublish() {
         return this.servicePublish;
     }
@@ -44,5 +42,20 @@ public class Video extends PanacheEntity{
         this.servicePublish = servicePublish;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getEmbedId() {
+        return this.embedId;
+    }
+
+    public void setEmbedId(String embedId) {
+        this.embedId = embedId;
+    }
 
 }

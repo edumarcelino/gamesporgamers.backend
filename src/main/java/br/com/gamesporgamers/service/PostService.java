@@ -3,10 +3,10 @@ package br.com.gamesporgamers.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.gamesporgamers.entity.Badge;
 import br.com.gamesporgamers.entity.Post;
 import br.com.gamesporgamers.entity.User;
 import br.com.gamesporgamers.entity.dto.PostDTO;
+import br.com.gamesporgamers.entity.dto.Resource.PostResourcePagination;
 import br.com.gamesporgamers.repository.PostRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -34,8 +34,13 @@ public class PostService {
         return postRepository.getPostsByBadgesOrderedByDate(badgeNames, page, size);
     }
 
+    public PostResourcePagination getPostsOrderedByDate(int page, int size) {
+        postRepository.getPostsOrderedByDate(page, size);
+        return postRepository.getPostsOrderedByDate(page, size);
+    }
+
     public List<Post> listLastFiveOrderedByDate() {
-        return postRepository.listLastFiveOrderedByDate();
+        return postRepository.listLastBySizeOrderedByDate();
     }
 
     public Post getPostById(Long postId) {

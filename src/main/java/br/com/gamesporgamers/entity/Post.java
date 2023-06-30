@@ -46,14 +46,6 @@ public class Post extends PanacheEntity {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private List<Image> images = new ArrayList<>();
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Video> videos = new ArrayList<>();
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<UserRatingPost> userRatingsPost = new ArrayList<>();
 
     // Relacionamento many-to-many com Platform
@@ -111,22 +103,6 @@ public class Post extends PanacheEntity {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public List<Image> getImages() {
-        return this.images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
-
-    public List<Video> getVideos() {
-        return this.videos;
-    }
-
-    public void setVideos(List<Video> videos) {
-        this.videos = videos;
     }
 
     public List<UserRatingPost> getUserRatingsPost() {

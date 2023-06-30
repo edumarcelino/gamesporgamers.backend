@@ -12,6 +12,7 @@ public class PostDTO {
     private int countComments;
     private int countLikes;
     private int countDislikes;
+    private int totalPages;
 
     public String getPostText() {
         return this.postText;
