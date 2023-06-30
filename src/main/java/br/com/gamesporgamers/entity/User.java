@@ -46,6 +46,10 @@ public class User extends PanacheEntity {
     @JsonIgnore
     private List<UserRatingPost> userRating = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<GameAnalysis> gameAnalyses = new ArrayList<>();
+
     public User(String username, String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
@@ -102,6 +106,16 @@ public class User extends PanacheEntity {
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
+
+
+    public List<GameAnalysis> getGameAnalyses() {
+        return this.gameAnalyses;
+    }
+
+    public void setGameAnalyses(List<GameAnalysis> gameAnalyses) {
+        this.gameAnalyses = gameAnalyses;
+    }
+
 
     @Override
     public String toString() {

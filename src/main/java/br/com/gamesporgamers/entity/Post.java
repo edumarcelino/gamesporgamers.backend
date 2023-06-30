@@ -48,7 +48,7 @@ public class Post extends PanacheEntity {
     @JsonIgnore
     private List<UserRatingPost> userRatingsPost = new ArrayList<>();
 
-    // Relacionamento many-to-many com Platform
+    // Relacionamento many-to-many com Badges
     @ManyToMany
     @JoinTable(name = "post_badges", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "badge_id"))
     private List<Badge> badges;

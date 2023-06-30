@@ -204,6 +204,33 @@ INSERT INTO public.post_badges (badge_id, post_id) VALUES(101, 1751);
 INSERT INTO public.post_badges (badge_id, post_id) VALUES(151, 1751);
 INSERT INTO public.post_badges (badge_id, post_id) VALUES(201, 1751);
 
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(1, 1851);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(51, 1851);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(101, 1851);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(151, 1851);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(201, 1851);
+
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(1, 1901);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(51, 1901);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(101, 1901);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(151, 1901);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(201, 1901);
+
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(1, 1951);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(51, 1951);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(101, 1951);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(151, 1951);
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(201, 1951);
+
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(51, 2301);
+
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(51, 2351);
+
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(51, 2401);
+
+INSERT INTO public.post_badges (badge_id, post_id) VALUES(51, 2451);
+
+
 INSERT INTO public.video (datepublish, id, description, embedid, servicepublish, urlvideo)
 VALUES('2023-06-20', nextval('video_seq'), 'GRID - Parte 1', 'bkY3gUhFPgg', 'Yotube', 'https://www.youtube.com/watch?v=bkY3gUhFPgg');
 
@@ -221,3 +248,11 @@ VALUES('2023-06-20', nextval('video_seq'), 'Castlevania Requiem: Symphony Of The
 
 INSERT INTO public.video (datepublish, id, description, embedid, servicepublish, urlvideo)
 VALUES('2023-06-20', nextval('video_seq'), 'ELDEN RING BEST FARM EVER', 'u12aXx5BN-w', 'Yotube', 'https://www.youtube.com/watch?v=u12aXx5BN-w');
+
+INSERT INTO public.gameanalysis
+(average, datepost, id, releasedate, user_id, description, platforms, posttexthtml, title, urlimage)
+VALUES(10.0, '2023-06-28', nextval('gameanalysis_seq'), '2023-06-30', 1, 'Após seis anos aguardando sequência do tão premiado jogo de Breath of the Wild, Tears of the Kingdom finalmente chega em 12 de maio para que voltemos ao vasto reino de Hyrule.', 'Nintendo Switch', '', 'The Legend of Zelda - Tears Of The Kingdom', 'https://now.estarland.com/images/products/18/71118/Legend-of-Zelda-Tears-of-The-Kingdom-large-image.jpg');
+
+INSERT INTO public.gameanalysis
+(average, datepost, id, releasedate, user_id, description, platforms, posttexthtml, title, urlimage)
+VALUES(9.2, '2023-06-28', nextval('gameanalysis_seq'), '2023-06-30', 1, 'Épico. Gameplay viciante, cheio de ação e uma narrativa sublime, Uma jornada inesquecível para novatos e fãs experientes', 'Playstation 5', '', 'Final Fantasy XVI', 'https://tse3.mm.bing.net/th?id=OIP.I1J345zZZl3zscPEm0uJ9wHaJO&pid=Api&P=0&h=180');
