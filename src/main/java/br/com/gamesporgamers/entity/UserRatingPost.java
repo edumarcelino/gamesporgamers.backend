@@ -20,4 +20,28 @@ public class UserRatingPost extends PanacheEntity {
     @Enumerated(EnumType.STRING)
     private PostRatingEnum postRating;
 
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Post getPost() {
+        return this.post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public PostRatingEnum getPostRating() {
+        return this.postRating;
+    }
+
+    public void setPostRating(PostRatingEnum postRating) {
+        this.postRating = postRating;
+    }
+
 }

@@ -256,3 +256,9 @@ VALUES(10.0, '2023-06-28', nextval('gameanalysis_seq'), '2023-06-30', 1, 'Após 
 INSERT INTO public.gameanalysis
 (average, datepost, id, releasedate, user_id, description, platforms, posttexthtml, title, urlimage)
 VALUES(9.2, '2023-06-28', nextval('gameanalysis_seq'), '2023-06-30', 1, 'Épico. Gameplay viciante, cheio de ação e uma narrativa sublime, Uma jornada inesquecível para novatos e fãs experientes', 'Playstation 5', '', 'Final Fantasy XVI', 'https://tse3.mm.bing.net/th?id=OIP.I1J345zZZl3zscPEm0uJ9wHaJO&pid=Api&P=0&h=180');
+
+
+INSERT INTO public.userratingpost(id, post_id, user_id, postrating) VALUES (1, 1, 1, 'LIKE');
+INSERT INTO public.userratingpost(id, post_id, user_id, postrating) VALUES (2, 51, 1, 'DISLIKE');
+INSERT INTO public.userratingpost(id, post_id, user_id, postrating) VALUES (3, 2401, 1, 'LIKE');
+INSERT INTO public.userratingpost(id, post_id, user_id, postrating) VALUES (4, 2451, 1, 'DISLIKE');

@@ -2,27 +2,27 @@ package br.com.gamesporgamers.entity.dto.auth;
 
 public class AuthResponseDTO {
 
-    public String token;
+    public String accessToken;
 
     public AuthResponseDTO() {
     }
 
     public AuthResponseDTO(String token) {
-        this.token = token;
+        this.accessToken = token;
     }
 
-    public String getToken() {
-        return this.token;
+    public String getAccessToken() {
+        return this.accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String token) {
+        this.accessToken = token;
     }
 
     @Override
     public String toString() {
         return "{" +
-                " token='" + getToken() + "'" +
+                " accessToken='" + getAccessToken() + "'" +
                 "}";
     }
 

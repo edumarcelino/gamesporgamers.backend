@@ -2,6 +2,8 @@ package br.com.gamesporgamers.api.admin;
 
 import java.util.List;
 
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
+
 import br.com.gamesporgamers.entity.Post;
 import br.com.gamesporgamers.entity.dto.PostDTO;
 import br.com.gamesporgamers.service.PostService;
@@ -29,7 +31,8 @@ public class PostRestrictResource {
     @RolesAllowed("ADMIN")
     @POST
     @Transactional
-    public Response createPost(PostDTO postDto) {
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response createPost(PostDTO postDto, MultipartFormDataInput formData) {
         postService.addPost(postDto);
         return Response.status(Response.Status.CREATED).build();
     }

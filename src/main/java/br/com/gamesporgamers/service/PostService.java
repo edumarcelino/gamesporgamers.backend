@@ -35,7 +35,6 @@ public class PostService {
     }
 
     public PostResourcePagination getPostsOrderedByDate(int page, int size) {
-        postRepository.getPostsOrderedByDate(page, size);
         return postRepository.getPostsOrderedByDate(page, size);
     }
 

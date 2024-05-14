@@ -1,18 +1,52 @@
 package br.com.gamesporgamers.entity.dto;
 
 import java.util.Date;
+import java.util.List;
 
+import br.com.gamesporgamers.entity.Badge;
 import br.com.gamesporgamers.entity.Post;
+import br.com.gamesporgamers.entity.UserRatingPost;
+import br.com.gamesporgamers.entity.enumTypes.PostRatingEnum;
 
 public class PostDTO {
+
+    private Long id;
+
+    private String title;
+    private String description;
     private String postText;
     private String postTextHTML;
     private Date datePost;
     private boolean highlighted;
+    private String urlMainImage;
+    private List<Badge> badges;
     private int countComments;
     private int countLikes;
     private int countDislikes;
-    private int totalPages;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getPostText() {
         return this.postText;
@@ -36,6 +70,22 @@ public class PostDTO {
 
     public void setDatePost(Date datePost) {
         this.datePost = datePost;
+    }
+
+    public String getUrlMainImage() {
+        return this.urlMainImage;
+    }
+
+    public void setUrlMainImage(String urlMainImage) {
+        this.urlMainImage = urlMainImage;
+    }
+
+    public List<Badge> getBadges() {
+        return this.badges;
+    }
+
+    public void setBadges(List<Badge> badges) {
+        this.badges = badges;
     }
 
     public boolean isHighlighted() {
@@ -87,10 +137,34 @@ public class PostDTO {
     // Método para mapear a entidade Post para o DTO
     public static PostDTO mapPostToDTO(Post post) {
         PostDTO dto = new PostDTO();
+        dto.setId(post.id);
+        dto.setTitle(post.getTitle());
+        dto.setDescription(post.getDescription());
         dto.setPostText(post.getPostText());
         dto.setPostTextHTML(post.getPostTextHTML());
         dto.setDatePost(post.getDatePost());
+        dto.setUrlMainImage(post.getUrlMainImage());
         dto.setHighlighted(post.isHighlighted());
+        dto.setCountComments(post.getComments().size());
+
+        dto.setBadges(post.getBadges());
+
+        int dislikeCounts = 0;
+        for (UserRatingPost rating : post.getUserRatingsPost()) {
+            if (rating.getPostRating().equals(PostRatingEnum.DISLIKE)) {
+                dislikeCounts++;
+            }
+        }
+        dto.setCountDislikes(dislikeCounts);
+
+        int likeCounts = 0;
+        for (UserRatingPost rating : post.getUserRatingsPost()) {
+            if (rating.getPostRating().equals(PostRatingEnum.LIKE)) {
+                likeCounts++;
+            }
+        }
+        dto.setCountLikes(likeCounts);
+
         return dto;
     }
 

@@ -6,6 +6,7 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 import br.com.gamesporgamers.entity.Post;
+import br.com.gamesporgamers.entity.dto.PostDTO;
 import br.com.gamesporgamers.entity.dto.Request.PaginatioRequestParams;
 import br.com.gamesporgamers.entity.dto.Request.PostDTORequestParams;
 import br.com.gamesporgamers.entity.dto.Resource.PostResourcePagination;
@@ -26,6 +27,12 @@ public class PostOpenResource {
     @GET
     public List<Post> listAllOrderedByDate() {
         return postService.listAllOrderedByDate();
+    }
+
+    @GET
+    @Path("/posts")
+    public List<PostDTO> listAllPostsDto() {
+        return postService.getAllPostDTO();
     }
 
     @POST
