@@ -54,7 +54,8 @@ public class PostService {
         post.setPostTextHTML(postDTO.getPostTextHTML());
         post.setDatePost(postDTO.getDatePost());
         post.setHighlighted(postDTO.isHighlighted());
-
+        post.setBadges(postDTO.getBadges());
+        
         // Persistir o post no banco de dados
         postRepository.persist(post);
     }

@@ -4,6 +4,14 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Set;
+
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import br.com.gamesporgamers.entity.Post;
 import br.com.gamesporgamers.entity.dto.PostDTO;
@@ -35,7 +43,7 @@ public class PostOpenResource {
         return postService.getAllPostDTO();
     }
 
-    @POST
+    @GET
     @Path("/bybadges")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<Post> getPostsByBadgesOrderedByDate(PostDTORequestParams requestParams) {
@@ -47,7 +55,7 @@ public class PostOpenResource {
         return postService.getPostsByBadgesOrderedByDate(badgesNames, page, size);
     }
 
-    @POST
+    @GET
     @Path("/postsexceptmain")
     @Consumes(MediaType.APPLICATION_JSON)
     public PostResourcePagination getPostsOrderedByDate(PaginatioRequestParams requestParams) {
