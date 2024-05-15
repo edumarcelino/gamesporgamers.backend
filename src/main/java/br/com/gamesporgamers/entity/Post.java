@@ -145,4 +145,9 @@ public class Post extends PanacheEntity {
         this.urlMainImage = urlMainImage;
     }
 
+    /*
+    public boolean isNew() {
+        return id == null || id == 0; // Verifica se o ID é nulo ou zero
+    }
+     */
 }

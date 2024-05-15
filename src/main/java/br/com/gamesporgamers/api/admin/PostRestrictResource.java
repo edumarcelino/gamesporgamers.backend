@@ -31,9 +31,8 @@ public class PostRestrictResource {
     @RolesAllowed("ADMIN")
     @POST
     @Transactional
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response createPost(PostDTO postDto, MultipartFormDataInput formData) {
-        postService.addPost(postDto);
+    public Response createPost(Post post) {
+        postService.addPost(post);
         return Response.status(Response.Status.CREATED).build();
     }
 

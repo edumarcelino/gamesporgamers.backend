@@ -46,16 +46,16 @@ public class PostService {
         return postRepository.findById(postId);
     }
 
-    public void addPost(PostDTO postDTO) {
+    public void addPost(Post postTmp) {
 
         // Mapear o DTO para a entidade Post
         Post post = new Post();
-        post.setPostText(postDTO.getPostText());
-        post.setPostTextHTML(postDTO.getPostTextHTML());
-        post.setDatePost(postDTO.getDatePost());
-        post.setHighlighted(postDTO.isHighlighted());
-        post.setBadges(postDTO.getBadges());
-        
+        post.setPostText(postTmp.getPostText());
+        post.setPostTextHTML(postTmp.getPostTextHTML());
+        post.setDatePost(postTmp.getDatePost());
+        post.setHighlighted(postTmp.isHighlighted());
+        post.setBadges(postTmp.getBadges());
+
         // Persistir o post no banco de dados
         postRepository.persist(post);
     }

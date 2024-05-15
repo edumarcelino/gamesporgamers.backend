@@ -3,6 +3,8 @@ package br.com.gamesporgamers.entity.dto;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
 import br.com.gamesporgamers.entity.Badge;
 import br.com.gamesporgamers.entity.Post;
 import br.com.gamesporgamers.entity.UserRatingPost;
@@ -10,6 +12,7 @@ import br.com.gamesporgamers.entity.enumTypes.PostRatingEnum;
 
 public class PostDTO {
 
+    @Schema(description = "ID do post (opcional, será gerado automaticamente pelo banco de dados)")
     private Long id;
 
     private String title;
@@ -20,8 +23,14 @@ public class PostDTO {
     private boolean highlighted;
     private String urlMainImage;
     private List<Badge> badges;
+
+    @Schema(description = "Número de comentários", hidden = true)
     private int countComments;
+
+    @Schema(description = "Número de curtidas", hidden = true)
     private int countLikes;
+
+    @Schema(description = "Número de descurtidas", hidden = true)
     private int countDislikes;
 
     public Long getId() {
@@ -137,7 +146,7 @@ public class PostDTO {
     // Método para mapear a entidade Post para o DTO
     public static PostDTO mapPostToDTO(Post post) {
         PostDTO dto = new PostDTO();
-        dto.setId(post.id);
+
         dto.setTitle(post.getTitle());
         dto.setDescription(post.getDescription());
         dto.setPostText(post.getPostText());
@@ -145,7 +154,6 @@ public class PostDTO {
         dto.setDatePost(post.getDatePost());
         dto.setUrlMainImage(post.getUrlMainImage());
         dto.setHighlighted(post.isHighlighted());
-        dto.setCountComments(post.getComments().size());
 
         dto.setBadges(post.getBadges());
 
@@ -155,7 +163,6 @@ public class PostDTO {
                 dislikeCounts++;
             }
         }
-        dto.setCountDislikes(dislikeCounts);
 
         int likeCounts = 0;
         for (UserRatingPost rating : post.getUserRatingsPost()) {
@@ -163,6 +170,10 @@ public class PostDTO {
                 likeCounts++;
             }
         }
+
+        dto.setId(post.id);
+        dto.setCountComments(post.getComments().size());
+        dto.setCountDislikes(dislikeCounts);
         dto.setCountLikes(likeCounts);
 
         return dto;
