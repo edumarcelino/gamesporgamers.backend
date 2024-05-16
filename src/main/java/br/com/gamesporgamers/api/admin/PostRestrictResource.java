@@ -2,10 +2,9 @@ package br.com.gamesporgamers.api.admin;
 
 import java.util.List;
 
-import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-
+import br.com.gamesporgamers.entity.Badge;
 import br.com.gamesporgamers.entity.Post;
-import br.com.gamesporgamers.entity.dto.PostDTO;
+
 import br.com.gamesporgamers.service.PostService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
