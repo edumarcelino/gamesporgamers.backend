@@ -136,7 +136,6 @@ public class PostDTO {
     // Método para mapear o DTO para a entidade Post
     public Post mapDTOtoPost() {
         Post post = new Post();
-        post.setPostText(this.postText);
         post.setPostTextHTML(this.postTextHTML);
         post.setDatePost(this.datePost);
         post.setHighlighted(this.highlighted);
@@ -149,7 +148,7 @@ public class PostDTO {
 
         dto.setTitle(post.getTitle());
         dto.setDescription(post.getDescription());
-        dto.setPostText(post.getPostText());
+        //dto.setPostText(post.getPostText());
         dto.setPostTextHTML(post.getPostTextHTML());
         dto.setDatePost(post.getDatePost());
         dto.setUrlMainImage(post.getUrlMainImage());

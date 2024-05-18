@@ -25,9 +25,6 @@ public class Post extends PanacheEntity {
     private String description;
 
     @Column(columnDefinition = "TEXT")
-    private String postText;
-
-    @Column(columnDefinition = "TEXT")
     private String postTextHTML;
 
     private Date datePost;
@@ -37,7 +34,6 @@ public class Post extends PanacheEntity {
     private String urlMainImage;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -53,13 +49,6 @@ public class Post extends PanacheEntity {
     @JoinTable(name = "post_badges", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "badge_id"))
     private List<Badge> badges;
 
-    public String getPostText() {
-        return this.postText;
-    }
-
-    public void setPostText(String postText) {
-        this.postText = postText;
-    }
 
     public String getPostTextHTML() {
         return this.postTextHTML;

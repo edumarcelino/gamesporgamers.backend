@@ -50,11 +50,13 @@ public class PostService {
 
         // Mapear o DTO para a entidade Post
         Post post = new Post();
-        post.setPostText(postTmp.getPostText());
+        post.setTitle(postTmp.getTitle());
+        post.setDescription(postTmp.getDescription());
         post.setPostTextHTML(postTmp.getPostTextHTML());
         post.setDatePost(postTmp.getDatePost());
         post.setHighlighted(postTmp.isHighlighted());
         post.setBadges(postTmp.getBadges());
+        post.setUser(postTmp.getUser());
 
         // Persistir o post no banco de dados
         postRepository.persist(post);

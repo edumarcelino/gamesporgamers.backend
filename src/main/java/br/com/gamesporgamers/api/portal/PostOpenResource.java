@@ -5,7 +5,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
-
 import br.com.gamesporgamers.entity.Post;
 import br.com.gamesporgamers.entity.dto.PostDTO;
 import br.com.gamesporgamers.entity.dto.Request.PaginatioRequestParams;

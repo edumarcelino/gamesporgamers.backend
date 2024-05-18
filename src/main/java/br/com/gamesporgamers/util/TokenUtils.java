@@ -8,11 +8,22 @@ import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 import br.com.gamesporgamers.entity.enumTypes.Role;
+import io.smallrye.jwt.auth.principal.JWTParser;
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
 
+@ApplicationScoped
 public class TokenUtils {
+
+	@Inject
+    JWTParser jwtParser;
+
 
 	public static String generateToken(String username, Set<Role> roles, Long duration, String issuer)
 			throws Exception {
@@ -69,4 +80,17 @@ public class TokenUtils {
 		return (int) (currentTimeMS / 1000);
 	}
 
+	public JsonWebToken parseToken(String token) throws Exception {
+		return jwtParser.parse(token);
+	}
+
+	public String getUsernameFromToken(String token) throws Exception {
+		JsonWebToken jwt = parseToken(token);
+		return jwt.getName(); // ou jwt.getClaim(Claims.upn.name());
+	}
+
+	public Set<String> getRolesFromToken(String token) throws Exception {
+		JsonWebToken jwt = parseToken(token);
+		return jwt.getGroups();
+	}
 }

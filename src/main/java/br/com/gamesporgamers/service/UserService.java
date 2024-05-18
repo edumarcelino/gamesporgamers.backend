@@ -29,4 +29,8 @@ public class UserService {
         userRepository.persistAndFlush(user);
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
 }
