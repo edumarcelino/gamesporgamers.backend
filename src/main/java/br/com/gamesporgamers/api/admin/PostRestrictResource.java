@@ -49,6 +49,7 @@ public class PostRestrictResource {
 
         // Obtém o token do cabeçalho de autorização
         String authorizationHeader = headers.getHeaderString(HttpHeaders.AUTHORIZATION);
+
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Authorization header must be provided")
                     .build();
@@ -62,9 +63,8 @@ public class PostRestrictResource {
 
         post.setUser(user);
 
-        System.out.println(user);
-
         postService.addPost(post);
+        
         return Response.status(Response.Status.CREATED).build();
     }
 
