@@ -20,7 +20,7 @@ import jakarta.ws.rs.core.Response;
 @Path("/api/v1/restrict/upload")
 public class ImageUploadResource {
 
-  private static final String UPLOAD_DIR = "uploads/";
+  private static final String UPLOAD_DIR = "src/main/resources/META-INF/resources/uploads/";
 
   static {
     // Cria o diretório de upload se ele não existir
@@ -32,13 +32,9 @@ public class ImageUploadResource {
   @Consumes(MediaType.MULTIPART_FORM_DATA)
   @Produces(MediaType.APPLICATION_JSON)
   public Response uploadImage(@MultipartForm ImageUploadForm form) {
-
-    System.out.println("upload() quantity of files + " + form.getFileContent());
-
     try {
       if (form.getFileContent() == null) {
-        // Handle the case where no file was uploaded (e.g., log a message or return an
-        // error response)
+        // Handle the case where no file was uploaded (e.g., log a message or return an error response)
         return Response.status(Response.Status.BAD_REQUEST)
             .entity("No file uploaded.")
             .build();
@@ -47,7 +43,7 @@ public class ImageUploadResource {
       String fileName = UUID.randomUUID().toString() + ".png";
       InputStream fileContent = form.getFileContent();
       saveFile(fileContent, UPLOAD_DIR + fileName);
-      String fileUrl = "http://localhost:8080/" + UPLOAD_DIR + fileName;
+      String fileUrl = "http://localhost:8080/uploads/" + fileName;
       return Response.ok().entity("{\"url\": \"" + fileUrl + "\"}").build();
     } catch (IOException e) {
       // Handle other exceptions

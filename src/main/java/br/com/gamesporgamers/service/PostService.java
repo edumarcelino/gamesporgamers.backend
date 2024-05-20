@@ -57,6 +57,7 @@ public class PostService {
         post.setHighlighted(postTmp.isHighlighted());
         post.setBadges(postTmp.getBadges());
         post.setUser(postTmp.getUser());
+        post.setUrlMainImage(postTmp.getUrlMainImage());
 
         // Persistir o post no banco de dados
         postRepository.persist(post);
